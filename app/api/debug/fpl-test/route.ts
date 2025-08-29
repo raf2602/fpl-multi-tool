@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     console.log(`Testing FPL API: ${url}`);
     
     // Test with timeout
-    const timeoutPromise = new Promise((_, reject) => {
+    const timeoutPromise = new Promise<never>((_, reject) => {
       setTimeout(() => reject(new Error('Request timeout')), 30000);
     });
 
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    const response = await Promise.race([fetchPromise, timeoutPromise]);
+    const response = await Promise.race([fetchPromise, timeoutPromise]) as Response;
     
     if (!response.ok) {
       return NextResponse.json({

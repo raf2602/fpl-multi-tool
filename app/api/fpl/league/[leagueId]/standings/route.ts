@@ -28,7 +28,14 @@ export async function GET(
       );
     }
 
-    const data = await fetchClassicStandings(leagueId, page);
+    // Add timeout for Netlify compatibility
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Request timeout')), 25000);
+    });
+
+    const dataPromise = fetchClassicStandings(leagueId, page);
+    
+    const data = await Promise.race([dataPromise, timeoutPromise]);
     
     return NextResponse.json(data, {
       headers: {
@@ -38,8 +45,19 @@ export async function GET(
   } catch (error) {
     console.error(`League ${params.leagueId} standings API error:`, error);
     
-    const errorMessage = getErrorMessage(error);
-    const status = errorMessage.includes('404') || errorMessage.includes('not found') ? 404 : 502;
+    let errorMessage = getErrorMessage(error);
+    let status = 502;
+    
+    // Better error handling for Netlify deployment
+    if (errorMessage.includes('timeout') || errorMessage.includes('Request timeout')) {
+      errorMessage = 'FPL servers are responding slowly. Please try again in a few moments.';
+      status = 504; // Gateway Timeout
+    } else if (errorMessage.includes('404') || errorMessage.includes('not found')) {
+      status = 404;
+    } else if (errorMessage.includes('403') || errorMessage.includes('forbidden')) {
+      errorMessage = 'League is private or access denied';
+      status = 403;
+    }
     
     return NextResponse.json(
       { error: 'Failed to fetch league standings', message: errorMessage },

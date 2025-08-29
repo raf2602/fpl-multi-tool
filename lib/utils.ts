@@ -86,16 +86,24 @@ export async function safeFetch(
 ): Promise<Response> {
   const maxRetries = 3;
   const baseDelay = 1000; // 1 second
+  const timeout = 15000; // 15 second timeout for Netlify compatibility
   
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
       const response = await fetch(url, {
         ...options,
+        signal: controller.signal,
         headers: {
           'User-Agent': 'FPL-WebApp/1.0',
           ...options.headers,
         },
       });
+      
+      clearTimeout(timeoutId);
       
       if (response.ok) {
         return response;
@@ -116,6 +124,15 @@ export async function safeFetch(
       
     } catch (error) {
       if (attempt === maxRetries - 1) {
+        // Provide better error messages for common issues
+        if (error instanceof Error) {
+          if (error.name === 'AbortError') {
+            throw new Error('Request timed out - FPL servers may be slow. Please try again.');
+          }
+          if (error.message.includes('fetch')) {
+            throw new Error('Network error - please check your connection and try again.');
+          }
+        }
         throw error;
       }
       

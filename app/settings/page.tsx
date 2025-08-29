@@ -41,7 +41,7 @@ export default function SettingsPage() {
     },
   });
   
-  const [tempLeagueId, setTempLeagueId] = useState<string>('1058183'); // Set default value
+  const [tempLeagueId, setTempLeagueId] = useState<string>('');
   const [tempEntryId, setTempEntryId] = useState<string>('');
   const [leagueData, setLeagueData] = useState<LeagueStandings | null>(null);
   const [loading, setLoading] = useState(false);
@@ -54,12 +54,7 @@ export default function SettingsPage() {
     loadSettings();
   }, []);
   
-  // Ensure tempLeagueId is always set
-  useEffect(() => {
-    if (!tempLeagueId) {
-      setTempLeagueId('1058183');
-    }
-  }, [tempLeagueId]);
+
 
   const loadSettings = () => {
     const savedLeagueId = getLocalStorage<number | null>('fpl-league-id', null);
@@ -75,9 +70,6 @@ export default function SettingsPage() {
     if (savedLeagueId) {
       setTempLeagueId(savedLeagueId.toString());
       validateLeague(savedLeagueId);
-    } else {
-      // Initialize with your league ID as default
-      setTempLeagueId('1058183');
     }
   };
 
@@ -476,12 +468,19 @@ export default function SettingsPage() {
                 <li>3. The number is your League ID</li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-medium text-sm">Test with a public league</h4>
-              <p className="text-sm text-muted-foreground mt-1">
-                Try League ID <code className="bg-muted px-1 rounded">314</code> (Overall league) to test if the app is working correctly.
-              </p>
-            </div>
+                         <div>
+               <h4 className="font-medium text-sm">Test with a public league</h4>
+               <p className="text-sm text-muted-foreground mt-1">
+                 Try League ID <code className="bg-muted px-1 rounded">314</code> (Overall league) to test if the app is working correctly.
+               </p>
+             </div>
+             <div>
+               <h4 className="font-medium text-sm">Debug API connectivity</h4>
+               <p className="text-sm text-muted-foreground mt-1">
+                 If you're having issues, you can test the FPL API directly at{' '}
+                 <code className="bg-muted px-1 rounded">/api/debug/fpl-test?leagueId=314</code>
+               </p>
+             </div>
           </div>
         </CardContent>
       </Card>

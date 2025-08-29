@@ -1,0 +1,398 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* FPL specific colors */
+  .fpl-primary {
+    @apply bg-purple-600 text-white;
+  }
+  
+  .fpl-secondary {
+    @apply bg-green-600 text-white;
+  }
+  
+  .fpl-accent {
+    @apply bg-pink-500 text-white;
+  }
+
+  /* Position colors */
+  .position-gk {
+    @apply bg-yellow-400 text-black;
+  }
+  
+  .position-def {
+    @apply bg-green-500 text-white;
+  }
+  
+  .position-mid {
+    @apply bg-blue-500 text-white;
+  }
+  
+  .position-fwd {
+    @apply bg-red-500 text-white;
+  }
+
+  /* Form indicators */
+  .form-excellent {
+    @apply bg-green-600 text-white;
+  }
+  
+  .form-good {
+    @apply bg-green-400 text-white;
+  }
+  
+  .form-average {
+    @apply bg-yellow-400 text-black;
+  }
+  
+  .form-poor {
+    @apply bg-orange-400 text-white;
+  }
+  
+  .form-terrible {
+    @apply bg-red-500 text-white;
+  }
+
+  /* Difficulty colors */
+  .difficulty-1 {
+    @apply bg-green-600 text-white;
+  }
+  
+  .difficulty-2 {
+    @apply bg-green-400 text-white;
+  }
+  
+  .difficulty-3 {
+    @apply bg-yellow-400 text-black;
+  }
+  
+  .difficulty-4 {
+    @apply bg-orange-400 text-white;
+  }
+  
+  .difficulty-5 {
+    @apply bg-red-500 text-white;
+  }
+
+  /* Captain and vice-captain indicators */
+  .captain-indicator {
+    @apply bg-yellow-500 text-black font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs;
+  }
+  
+  .vice-captain-indicator {
+    @apply bg-gray-500 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center text-xs;
+  }
+
+  /* Chip indicators */
+  .chip-wildcard {
+    @apply bg-purple-600 text-white;
+  }
+  
+  .chip-freehit {
+    @apply bg-blue-600 text-white;
+  }
+  
+  .chip-bench-boost {
+    @apply bg-green-600 text-white;
+  }
+  
+  .chip-triple-captain {
+    @apply bg-yellow-500 text-black;
+  }
+
+  /* League table styling */
+  .league-table {
+    @apply w-full border-collapse;
+  }
+  
+  .league-table th {
+    @apply bg-muted p-2 text-left font-semibold border-b;
+  }
+  
+  .league-table td {
+    @apply p-2 border-b;
+  }
+  
+  .league-table tbody tr:hover {
+    @apply bg-muted/50;
+  }
+
+  /* Status indicators */
+  .status-playing {
+    @apply bg-green-500 text-white;
+  }
+  
+  .status-doubtful {
+    @apply bg-yellow-500 text-black;
+  }
+  
+  .status-injured {
+    @apply bg-red-500 text-white;
+  }
+  
+  .status-suspended {
+    @apply bg-gray-500 text-white;
+  }
+
+  /* Rank change indicators */
+  .rank-up {
+    @apply text-green-600 font-semibold;
+  }
+  
+  .rank-down {
+    @apply text-red-600 font-semibold;
+  }
+  
+  .rank-same {
+    @apply text-gray-500;
+  }
+
+  /* Points indicators */
+  .points-excellent {
+    @apply text-green-600 font-bold;
+  }
+  
+  .points-good {
+    @apply text-green-500 font-semibold;
+  }
+  
+  .points-average {
+    @apply text-gray-600;
+  }
+  
+  .points-poor {
+    @apply text-red-500 font-semibold;
+  }
+
+  /* Live indicators */
+  .live-indicator {
+    @apply animate-pulse bg-red-500 text-white px-2 py-1 rounded text-xs;
+  }
+  
+  .finished-indicator {
+    @apply bg-gray-500 text-white px-2 py-1 rounded text-xs;
+  }
+
+  /* Loading states */
+  .loading-shimmer {
+    @apply animate-pulse bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 bg-[length:200%_100%];
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  /* Card variants */
+  .card-interactive {
+    @apply transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer;
+  }
+  
+  .card-highlight {
+    @apply border-primary bg-primary/5;
+  }
+
+  /* Navigation styling */
+  .nav-tabs {
+    @apply flex border-b overflow-x-auto;
+  }
+  
+  .nav-tab {
+    @apply px-4 py-2 font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap;
+  }
+  
+  .nav-tab-active {
+    @apply text-primary border-b-2 border-primary;
+  }
+
+  /* Responsive utilities */
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+  }
+
+  /* FPL specific layouts */
+  .formation-grid {
+    @apply grid grid-cols-5 gap-2 text-center;
+  }
+  
+  .pitch-layout {
+    @apply bg-gradient-to-b from-green-400 to-green-600 p-4 rounded-lg;
+  }
+
+  /* Accessibility */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+
+  /* Focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent;
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-break {
+      page-break-before: always;
+    }
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--muted));
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .mobile-stack {
+    @apply flex-col space-y-2 space-x-0;
+  }
+  
+  .mobile-scroll {
+    @apply overflow-x-auto;
+  }
+  
+  .mobile-full {
+    @apply w-full;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    @apply border-2;
+  }
+  
+  .button {
+    @apply border-2;
+  }
+}

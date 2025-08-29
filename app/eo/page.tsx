@@ -49,7 +49,7 @@ export default function EOPage() {
   const [differentialThreshold, setDifferentialThreshold] = useState(10);
 
   useEffect(() => {
-    const savedLeagueId = getLocalStorage('leagueId');
+    const savedLeagueId = getLocalStorage('leagueId', '');
     if (savedLeagueId) {
       setLeagueId(savedLeagueId);
     }

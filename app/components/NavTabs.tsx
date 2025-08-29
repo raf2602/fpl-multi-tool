@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from './theme-toggle';
 import {
   Home,
   Activity,
@@ -16,6 +17,7 @@ import {
   FileText,
   Settings,
   LogIn,
+  Info,
 } from 'lucide-react';
 
 const navigationItems = [
@@ -78,6 +80,12 @@ const navigationItems = [
 
 const utilityItems = [
   {
+    label: 'About',
+    href: '/about',
+    icon: Info,
+    description: 'About the developer and this tool',
+  },
+  {
     label: 'Settings',
     href: '/settings',
     icon: Settings,
@@ -138,6 +146,7 @@ export function NavTabs({ className }: NavTabsProps) {
 
           {/* Utility Navigation */}
           <div className="flex items-center space-x-1">
+            <ThemeToggle />
             {utilityItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;

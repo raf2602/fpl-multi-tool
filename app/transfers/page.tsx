@@ -40,7 +40,7 @@ export default function TransfersPage() {
   const [successfulHits, setSuccessfulHits] = useState(0);
 
   useEffect(() => {
-    const savedEntryId = getLocalStorage('entryId');
+    const savedEntryId = getLocalStorage('entryId', '');
     if (savedEntryId) {
       setEntryId(savedEntryId);
     }

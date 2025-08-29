@@ -75,7 +75,7 @@ export default function ReviewPage() {
   const [selectedGameweek, setSelectedGameweek] = useState<number | null>(null);
 
   useEffect(() => {
-    const savedEntryId = getLocalStorage('entryId');
+    const savedEntryId = getLocalStorage('entryId', '');
     if (savedEntryId) {
       setEntryId(savedEntryId);
     }

@@ -1,9 +1,3 @@
 # Redirects for Netlify
-# Handle API routes (if using serverless functions)
-/api/* /.netlify/functions/:splat 200
-
-# Handle Next.js static assets
-/_next/* /_next/:splat 200
-
-# SPA fallback - this should be last
+# SPA fallback for Next.js App Router
 /* /index.html 200

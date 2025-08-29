@@ -41,7 +41,7 @@ export default function SettingsPage() {
     },
   });
   
-  const [tempLeagueId, setTempLeagueId] = useState<string>('');
+  const [tempLeagueId, setTempLeagueId] = useState<string>('1058183'); // Set default value
   const [tempEntryId, setTempEntryId] = useState<string>('');
   const [leagueData, setLeagueData] = useState<LeagueStandings | null>(null);
   const [loading, setLoading] = useState(false);
@@ -53,6 +53,13 @@ export default function SettingsPage() {
   useEffect(() => {
     loadSettings();
   }, []);
+  
+  // Ensure tempLeagueId is always set
+  useEffect(() => {
+    if (!tempLeagueId) {
+      setTempLeagueId('1058183');
+    }
+  }, [tempLeagueId]);
 
   const loadSettings = () => {
     const savedLeagueId = getLocalStorage<number | null>('fpl-league-id', null);
@@ -68,6 +75,9 @@ export default function SettingsPage() {
     if (savedLeagueId) {
       setTempLeagueId(savedLeagueId.toString());
       validateLeague(savedLeagueId);
+    } else {
+      // Initialize with your league ID as default
+      setTempLeagueId('1058183');
     }
   };
 
@@ -78,7 +88,27 @@ export default function SettingsPage() {
       
       const response = await fetch(`/api/fpl/league/${leagueId}/standings`);
       if (!response.ok) {
-        throw new Error('League not found or is private');
+        let errorMessage = 'League not found or is private';
+        
+        if (response.status === 404) {
+          errorMessage = `League ${leagueId} does not exist`;
+        } else if (response.status === 403) {
+          errorMessage = `League ${leagueId} is private and cannot be accessed`;
+        } else if (response.status >= 500) {
+          errorMessage = 'FPL servers are currently unavailable. Please try again later.';
+        }
+        
+        // Try to get more specific error from response
+        try {
+          const errorData = await response.json();
+          if (errorData.message) {
+            errorMessage = errorData.message;
+          }
+        } catch {
+          // Ignore JSON parsing errors, use default message
+        }
+        
+        throw new Error(errorMessage);
       }
       
       const data: LeagueStandings = await response.json();
@@ -222,13 +252,16 @@ export default function SettingsPage() {
                 value={tempLeagueId}
                 onChange={(e) => setTempLeagueId(e.target.value)}
                 className="flex-1"
+                min="1"
               />
               <Button 
                 onClick={handleLeagueSubmit}
-                disabled={validatingLeague || !tempLeagueId}
+                disabled={validatingLeague || !tempLeagueId.trim()}
               >
                 {validatingLeague ? 'Validating...' : 'Validate'}
               </Button>
+              
+
             </div>
             <p className="text-xs text-muted-foreground">
               Find this in your FPL league URL: fantasy.premierleague.com/leagues/<strong>123456</strong>/standings
@@ -409,6 +442,46 @@ export default function SettingsPage() {
               <X className="h-4 w-4 mr-2" />
               Reset All Settings
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Troubleshooting */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <AlertCircle className="h-5 w-5" />
+            <span>Troubleshooting</span>
+          </CardTitle>
+          <CardDescription>
+            Common issues and solutions
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-sm">League not found or is private</h4>
+              <ul className="text-sm text-muted-foreground space-y-1 mt-1">
+                <li>• Check that your League ID is correct</li>
+                <li>• Make sure the league is set to "Public" in FPL settings</li>
+                <li>• Private leagues can only be accessed by league members</li>
+                <li>• Try using a different public league to test</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-sm">Where to find your League ID</h4>
+              <ul className="text-sm text-muted-foreground space-y-1 mt-1">
+                <li>1. Go to your FPL league page</li>
+                <li>2. Look at the URL: fantasy.premierleague.com/leagues/<strong>12345</strong>/standings</li>
+                <li>3. The number is your League ID</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-sm">Test with a public league</h4>
+              <p className="text-sm text-muted-foreground mt-1">
+                Try League ID <code className="bg-muted px-1 rounded">314</code> (Overall league) to test if the app is working correctly.
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>

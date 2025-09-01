@@ -341,6 +341,7 @@ export function debounce<T extends (...args: any[]) => any>(
 export function formatLeagueType(leagueType: string): string {
   switch (leagueType.toLowerCase()) {
     case 'c':
+    case 'x':
     case 'classic':
       return 'Classic League';
     case 'h':

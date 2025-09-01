@@ -36,7 +36,7 @@ async function testLeague(id) {
     if (data.league) {
       console.log('✅ League found!');
       console.log(`Name: ${data.league.name}`);
-      console.log(`Type: ${data.league.league_type === 'c' ? 'Classic League' : data.league.league_type === 'h' ? 'Head-to-Head League' : 'Fantasy Draft League'}`);
+      console.log(`Type: ${data.league.league_type === 'c' || data.league.league_type === 'x' ? 'Classic League' : data.league.league_type === 'h' ? 'Head-to-Head League' : 'Fantasy Draft League'}`);
       console.log(`Privacy: ${data.league.code_privacy === 'p' ? 'Public' : 'Private'}`);
       console.log(`Members: ${data.standings?.results?.length || 0}`);
       console.log(`Max entries: ${data.league.max_entries || 'Unlimited'}`);

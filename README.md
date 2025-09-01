@@ -109,4 +109,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Export functionality for data
 - Mobile app companion
 - More detailed fixture analysis
-- Custom league comparisons
+

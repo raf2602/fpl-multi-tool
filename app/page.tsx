@@ -6,7 +6,7 @@ import { Button } from './components/ui/button';
 import { Badge } from './components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from './components/ui/alert';
 import { Activity, Users, Calendar, TrendingUp, Crown, Zap, RefreshCw, AlertCircle } from 'lucide-react';
-import { cn, formatNumber, getLocalStorage, setLocalStorage } from '@/lib/utils';
+import { cn, formatNumber, getLocalStorage, setLocalStorage, formatLeagueType, formatScoring } from '@/lib/utils';
 import type { Bootstrap, LeagueStandings } from '@/lib/types';
 
 interface DashboardStats {
@@ -346,11 +346,11 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">League Type</p>
-                  <p className="text-lg capitalize">{leagueData.league.league_type}</p>
+                  <p className="text-lg">{formatLeagueType(leagueData.league.league_type)}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Scoring</p>
-                  <p className="text-lg capitalize">{leagueData.league.scoring}</p>
+                  <p className="text-lg">{formatScoring(leagueData.league.scoring)}</p>
                 </div>
               </div>
             </CardContent>

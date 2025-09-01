@@ -336,3 +336,38 @@ export function debounce<T extends (...args: any[]) => any>(
     timeout = setTimeout(() => func(...args), wait);
   };
 }
+
+// League formatting utilities
+export function formatLeagueType(leagueType: string): string {
+  switch (leagueType.toLowerCase()) {
+    case 'c':
+    case 'classic':
+      return 'Classic League';
+    case 'h':
+    case 'h2h':
+    case 'head-to-head':
+      return 'Head-to-Head League';
+    case 'f':
+    case 'draft':
+      return 'Fantasy Draft League';
+    default:
+      return 'Unknown League Type';
+  }
+}
+
+export function formatScoring(scoring: string): string {
+  switch (scoring.toLowerCase()) {
+    case 'c':
+    case 'classic':
+      return 'Classic Scoring';
+    case 'h':
+    case 'h2h':
+    case 'head-to-head':
+      return 'Head-to-Head Scoring';
+    case 'x':
+    case 'custom':
+      return 'Custom Scoring';
+    default:
+      return 'Unknown Scoring';
+  }
+}

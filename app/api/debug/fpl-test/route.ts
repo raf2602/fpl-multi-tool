@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { formatLeagueType } from '@/lib/utils';
 
 export async function GET(request: NextRequest) {
   try {
@@ -39,7 +40,7 @@ export async function GET(request: NextRequest) {
       status: response.status,
       url,
       leagueName: data.league?.name || 'Unknown',
-      leagueType: data.league?.league_type || 'Unknown',
+      leagueType: data.league?.league_type ? formatLeagueType(data.league.league_type) : 'Unknown',
       privacy: data.league?.code_privacy === 'p' ? 'Private' : 'Public',
       memberCount: data.standings?.results?.length || 0,
       data: data,

@@ -17,7 +17,7 @@ import {
   Save,
   RotateCcw
 } from 'lucide-react';
-import { cn, formatNumber, getLocalStorage, setLocalStorage, isNumber } from '@/lib/utils';
+import { cn, formatNumber, getLocalStorage, setLocalStorage, isNumber, formatLeagueType } from '@/lib/utils';
 import type { LeagueStandings } from '@/lib/types';
 
 interface SettingsData {
@@ -266,7 +266,7 @@ export default function SettingsPage() {
                 <div>
                   <h4 className="font-medium">{leagueData.league.name}</h4>
                   <p className="text-sm text-muted-foreground">
-                    {formatNumber(leagueData.standings.results.length)} managers • {leagueData.league.league_type}
+                    {formatNumber(leagueData.standings.results.length)} managers • {formatLeagueType(leagueData.league.league_type)}
                   </p>
                 </div>
                 <Badge variant="secondary">

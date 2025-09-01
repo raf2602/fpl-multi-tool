@@ -4,3 +4,14 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/api/fpl/bootstrap"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=300"
+    Pragma = "no-cache"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=600"

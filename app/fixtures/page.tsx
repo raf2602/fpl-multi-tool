@@ -57,9 +57,9 @@ export default function FixturesPage() {
       setLoading(true);
       setError(null);
 
-      // Fetch bootstrap and fixtures data
+      // Fetch bootstrap and fixtures data (with cache busting)
       const [bootstrapResponse, fixturesResponse] = await Promise.all([
-        fetch('/api/fpl/bootstrap'),
+        fetch(`/api/fpl/bootstrap?t=${Date.now()}`),
         fetch('/api/fpl/fixtures')
       ]);
 

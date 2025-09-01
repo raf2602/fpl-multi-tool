@@ -72,8 +72,8 @@ export default function CaptainPage() {
       setLoading(true);
       setError(null);
 
-      // Fetch bootstrap data
-      const bootstrapResponse = await fetch('/api/fpl/bootstrap');
+      // Fetch bootstrap data (with cache busting)
+      const bootstrapResponse = await fetch(`/api/fpl/bootstrap?t=${Date.now()}`);
       if (!bootstrapResponse.ok) throw new Error('Failed to fetch game data');
       const bootstrapData: Bootstrap = await bootstrapResponse.json();
       setBootstrap(bootstrapData);

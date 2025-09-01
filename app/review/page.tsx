@@ -100,9 +100,9 @@ export default function ReviewPage() {
         throw new Error('Entry ID is required');
       }
 
-      // Fetch bootstrap data and entry history
+      // Fetch bootstrap data and entry history (with cache busting)
       const [bootstrapResponse, historyResponse] = await Promise.all([
-        fetch('/api/fpl/bootstrap'),
+        fetch(`/api/fpl/bootstrap?t=${Date.now()}`),
         fetch(`/api/fpl/entry/${entryId}/history`)
       ]);
 

@@ -77,8 +77,8 @@ export default function LivePage() {
     try {
       setError(null);
       
-      // Fetch bootstrap data first to get current GW
-      const bootstrapResponse = await fetch('/api/fpl/bootstrap');
+      // Fetch bootstrap data first to get current GW (with cache busting)
+      const bootstrapResponse = await fetch(`/api/fpl/bootstrap?t=${Date.now()}`);
       if (!bootstrapResponse.ok) throw new Error('Failed to fetch game data');
       const bootstrapData: Bootstrap = await bootstrapResponse.json();
       setBootstrap(bootstrapData);
